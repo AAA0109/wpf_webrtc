@@ -1,0 +1,30 @@
+﻿<Window x:Name="win_player" x:Class="WpfWebRTCPlayer.PlayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfWebRTCPlayer"
+        xmlns:properties="clr-namespace:WpfWebRTCPlayer.Properties"
+        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="Player Window" WindowStyle="None" ResizeMode="CanResizeWithGrip" Topmost="True"
+        Visibility="{c:Binding 'local:GlobalValues.PlayerWindowEnable', FalseToVisibility=Hidden, Mode=TwoWay}"
+        Width="{c:Binding Source={x:Static properties:Settings.Default}, Path=(set_playerWidth+10), Mode=TwoWay}"
+        Height="{c:Binding Source={x:Static properties:Settings.Default}, Path=(set_playerHeight+10), Mode=TwoWay}"
+        AllowsTransparency="True" Background="Transparent" SizeChanged="win_player_SizeChanged" IsVisibleChanged="win_player_IsVisibleChanged">
+    <Grid>
+        <Grid>
+            <wv2:WebView2 Name="web_player"
+                DefaultBackgroundColor="{Binding DefaultBackgroundColor.Black, ElementName=web_player, Mode=OneWay}"
+                Loaded="web_player_Loaded" Initialized="web_player_Initialized" Cursor="None" ForceCursor="True" Focusable="False" Margin="0,0,10,10"/>
+            <Border Background="#11FFFFFF" Margin="0,0,10,10" Cursor="None"></Border>
+            
+            <Border CornerRadius="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="4" Height="40" Background="#CCFFFFFF" Margin="0,0,3,0"></Border>
+            <Thumb Name="ResizeGripperH" Margin="0,0,0,0" Width="10" HorizontalAlignment="Right" Cursor="SizeWE" DragDelta="ResizeGripper_H_DragDelta" Opacity="0.3" Background="Gray"/>
+            
+            <Border CornerRadius="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="40" Height="4" Background="#CCFFFFFF" Margin="0,0,0,3"></Border>
+            <Thumb Name="ResizeGripperV"  Margin="0,0,0,0" Height="10" VerticalAlignment="Bottom" Cursor="SizeNS" DragDelta="ResizeGripper_V_DragDelta" Opacity="0.3" Background="Gray"/>
+        </Grid>
+    </Grid>
+</Window>
